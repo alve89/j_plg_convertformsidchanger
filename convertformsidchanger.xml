@@ -8,7 +8,7 @@
 	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
 	<authorEmail>joomla@devel.stefan-herzog.com</authorEmail>
 	<authorUrl>github.com/alve89</authorUrl>
-	<version>0.0.7</version>
+	<version>0.0.8</version>
 	<description>Plugin for adapting the correct contact form id</description>
 
 	<files>
@@ -37,7 +37,7 @@
 
 		</fields>
 	</config>
-    <updateservers>
-  		<server type="extension" priority="1" name="convertformsidchanger">https://devel.stefan-herzog.com/joomla/update_plgs.xml.php?plg_name=plg_convertformsidchanger</server>
-  	</updateservers>
+	<updateservers>
+  		<server type="extension" priority="1" name="convertformsidchanger">https://raw.githubusercontent.com/alve89/j_plg_convertformsidchanger/master/updates.xml</server>
+	</updateservers>
 </extension>
