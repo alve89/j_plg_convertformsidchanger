@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<extension version="3.6" type="plugin" group="system" method="upgrade">
+	<name>convertformsidchanger</name>
+	<author>Stefan Herzog</author>
+	<creationDate>August 2020</creationDate>
+	<copyright>(C) 2005 - 2020 Open Source Matters. All rights reserved.</copyright>
+	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+	<authorEmail>joomla@devel.stefan-herzog.com</authorEmail>
+	<authorUrl>github.com/alve89</authorUrl>
+	<version>0.0.7</version>
+	<description>Plugin for adapting the correct contact form id</description>
+
+	<files>
+		<filename plugin="convertformsidchanger">convertformsidchanger.php</filename>
+		<filename>index.html</filename>
+	</files>
+
+	<config>
+		<fields name="params">
+
+			<fieldset name="basic">
+				<field name="parameterName"
+					   type="text"
+					   label="PLG_HRZ_CONVERTFORMSIDCHANGER_LABEL_PARAMETERNAME"
+					   required="true"
+					   default="cfid"
+					   maxLength="15"
+				/>
+				<field name="defaultRecipientName"
+					   type="text"
+					   label="PLG_HRZ_CONVERTFORMSIDCHANGER_LABEL_DEFAULTRECIPIENTNAME"
+					   required="true"
+					   default="STANDARDEMPFAENGER"
+				/>
+			</fieldset>
+
+		</fields>
+	</config>
+    <updateservers>
+  		<server type="extension" priority="1" name="convertformsidchanger">https://devel.stefan-herzog.com/joomla/update_plgs.xml.php?plg_name=plg_convertformsidchanger</server>
+  	</updateservers>
+</extension>
