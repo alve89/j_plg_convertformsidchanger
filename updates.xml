@@ -4,14 +4,14 @@
         <description></description>
         <element>plg_convertformsidchanger</element>
         <type>module</type>
-        <version>0.0.8</version>
+        <version>0.0.9</version>
         <client>0</client>
         <infourl title="ConvertForms ID Changer" />
         <downloads>
             <downloadurl
                 type="full"
                 format="zip">
-                https://github.com/alve89/j_plg_convertformsidchanger/archive/v0.0.8.zip
+                https://github.com/alve89/j_plg_convertformsidchanger/archive/v0.0.9.zip
             </downloadurl>
         </downloads>
         <tags>

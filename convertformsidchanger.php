@@ -11,14 +11,19 @@ class PlgSystemConvertformsidchanger extends JPlugin {
 			return true;
 		}
 
-		
-		
+
+
 		if(isset($_GET[$this->params->get('parameterName')]) && is_int(intval($_GET[$this->params->get('parameterName')]))) {
 			$formid = $_GET[$this->params->get('parameterName')];
 		}
+		else {
+			$formid = 0;
+		}
 
 		if(isset($_GET['uid']) && is_int(intval($_GET['uid']))) {
+			// Parameter uid is set and it's a valid value
 			$uid = $_GET['uid'];
+
 			// Get user details from database by given uid
 
 			// Get a db connection.
@@ -40,6 +45,9 @@ class PlgSystemConvertformsidchanger extends JPlugin {
 			// Load the results as a list of stdClass objects (see later for more options on retrieving data).
 			$results = $db->loadObjectList();
 		}
+		else {
+			$results = NULL;
+		}
 
     	// Search for this tag in the content
 		//$regex = "#{convertforms (.*?)}#s";
@@ -52,18 +60,20 @@ class PlgSystemConvertformsidchanger extends JPlugin {
 		}
 
 		// Check if uid and formid are set and get user specific name
-		if(count($results) == 1 && !empty($formid)) {
-			$name = $results[0]->firstname . ' ' . $results[0]->lastname;
+		if(!is_null($results)) {
+			if(count($results) == 1 && !empty($formid) && $formid >> 0) {
+				$name = $results[0]->firstname . ' ' . $results[0]->lastname;
+			}
 		}
 		else {
 			$name = $this->params->get('defaultRecipientName');
 		}
-		
+
 		// Replace default name by user specific name
 		$regex = "~{recipientname}~";
 		$replace = $name;
 		//$replace = 'abc123';
 
-		$article->text = preg_replace($regex, $replace, $article->text);		
+		$article->text = preg_replace($regex, $replace, $article->text);
 	}
 }
