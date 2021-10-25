@@ -13,16 +13,16 @@ class PlgSystemConvertformsidchanger extends JPlugin {
 
 
 
-		if(isset($_GET[$this->params->get('parameterName')]) && is_int(intval($_GET[$this->params->get('parameterName')]))) {
-			$formid = $_GET[$this->params->get('parameterName')];
+		if(isset($_POST[$this->params->get('parameterName')]) && is_int(intval($_POST[$this->params->get('parameterName')]))) {
+			$formid = $_POST[$this->params->get('parameterName')];
 		}
 		else {
 			$formid = 0;
 		}
 
-		if(isset($_GET['uid']) && is_int(intval($_GET['uid']))) {
+		if(isset($_POST['uid']) && is_int(intval($_POST['uid']))) {
 			// Parameter uid is set and it's a valid value
-			$uid = $_GET['uid'];
+			$uid = $_POST['uid'];
 
 			// Get user details from database by given uid
 
