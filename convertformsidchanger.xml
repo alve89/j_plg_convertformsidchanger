@@ -3,11 +3,11 @@
 	<name>PLG_HRZ_CONVERTFORMSIDCHANGER</name>
 	<author>Stefan Herzog</author>
 	<creationDate>August 2020</creationDate>
-	<copyright>(C) 2005 - 2020 Open Source Matters. All rights reserved.</copyright>
+	<copyright>(C) 2005 - 2024 Open Source Matters. All rights reserved.</copyright>
 	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
 	<authorEmail>joomla@devel.stefan-herzog.com</authorEmail>
 	<authorUrl>github.com/alve89</authorUrl>
-	<version>0.0.12</version>
+	<version>0.0.13</version>
 	<description>PLG_HRZ_CONVERTFORMSIDCHANGER_INSTALL_DESC</description>
 
 	<files>
