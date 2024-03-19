@@ -1,10 +1,12 @@
 This plugin intends to automatically replaces a users ID to a Form ID of Joomlas extension Convert Forms.
 
 The workflow is:
-- The site visitor clicks on a link to a contact form to directly (!) contact a user (e. g. https://my.site/directcontact?cfid=99) where:
+- The site visitor clicks on a link to a contact form to directly (!) contact a user (e. g. https://my.site/directcontact?cfid=99&uid=123) where:
     - directcontact is the menu item to a Convert Forms form which runs a PHP-script (see below)
-    - cfid is the parameter name to transport the user id. It is configurable in this plugin.
-    - 99 is the users id which is supposed to be contacted.
+    - cfid is the parameter name to transport the contact form id. It is configurable in this plugin.
+	- uid is the parameter name to transport the user id.
+    - 99 is the contact form id which is supposed to be used as direct form.
+	- 123 is the users id which is supposed to be contacted
 - The user is being redirected to this directform
 - The PHP script within this form looks up the users id in the database, loads its email address and puts it into an hidden field
 - The visitor enters a message to the contact form and the mail gets sent to the hidden fields mail address.

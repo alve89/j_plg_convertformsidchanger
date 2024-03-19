@@ -2,6 +2,10 @@
 
 defined('_JEXEC') or die;
 
+// JLoader::import('ModHrzShowSingleUserHelper.varDump','/modules/mod_hrz_show_single_user/helper.php');
+JLoader::register('ModHrzShowSingleUserHelper', JPATH_SITE . '/modules/mod_hrz_show_single_user/helper.php');
+
+
 
 class PlgSystemConvertformsidchanger extends JPlugin {
 
@@ -10,47 +14,66 @@ class PlgSystemConvertformsidchanger extends JPlugin {
 		if ($context == 'com_finder.indexer')	{
 			return true;
 		}
-
+ 
+		$userSet = false;
+		$formSet = false;
+		$user = new stdClass();
 
 		// Check if the configured parameter key was transmitted via POST and if the given value of this key is a valid integer
-		if(isset($_POST[$this->params->get('parameterName')]) && is_int(intval($_POST[$this->params->get('parameterName')]))) {
-			$formid = $_POST[$this->params->get('parameterName')];
-		}
-		else {
+		if(isset($_GET[$this->params->get('parameterName')]) && is_int(intval($_GET[$this->params->get('parameterName')]))) {
 			/*
-			 * TODO Change behaviour from formid=0 to redirect to default address
+			 * Check we changed transport method from GET to POST
+			 * This also refers to the PHP script within the Convert Forms component!
 			 */
-			$formid = 0;
+			$formid = $_GET[$this->params->get('parameterName')];
+			$formSet = true;
+		}
+
+		if(!$formSet) {
+			/*
+			 * TODO Redirect to default contact address
+			 */
+		}
+
+
+		if(isset($_GET[$this->params->get('parameterNameUserId')]) && is_int(intval($_GET[$this->params->get('parameterNameUserId')]))) {
+			/*
+			 * Check wwhy changed transport method from GET to POST
+			 */
+			$uid = $_GET[$this->params->get('parameterNameUserId')];
+			$userSet = true;
 			
 		}
 
-		if(isset($_POST['uid']) && is_int(intval($_POST['uid']))) {
-			// Parameter uid is set and it's a valid value
-			$uid = $_POST['uid'];
 
-			// Get user details from database by given uid
 
-			// Get a db connection.
-			$db = JFactory::getDbo();
-
-			// Create a new query object.
-			$query = $db->getQuery(true);
-
-			// Select all records from the user profile table where key begins with "custom.".
-			// Order it by the ordering field.
-			$query->select($db->quoteName(array('firstname', 'lastname', 'telefonnummer')));
-			$query->from($db->quoteName('#__jsn_users'));
-			$query->where($db->quoteName('id') . ' = ' . $db->quote($uid));
-			$query->order('lastname ASC');
-
-			// Reset the query using our newly populated query object.
-			$db->setQuery($query);
-
-			// Load the results as a list of stdClass objects (see later for more options on retrieving data).
-			$results = $db->loadObjectList();
+		if(!$userSet) {
+			/*
+			 * TODO Redirect to default contact address
+			 */
 		}
 		else {
-			$results = NULL;
+			// Get user details from database by given uid
+
+			// Load custom fields for the given user (specified by 'userid' in modules configuration)
+			// a = fields
+			// b = fields_values
+
+			$db = JFactory::getDBO();
+			$query = $db->getQuery(true);
+			$query->select(array('a.name', 'b.value'));
+			$query->from($db->quoteName('#__fields', 'a'));
+			$query->join('INNER', $db->quoteName('#__fields_values', 'b') . ' ON ' . $db->quoteName('a.id') . ' = ' . $db->quoteName('b.field_id'));	
+			$query->where($db->quoteName('b.item_id') . '='. $db->quote(intval($_GET[$this->params->get('parameterNameUserId')])));
+			$db->setQuery((string) $query);
+			$userDetails = $db->loadObjectList();
+			
+			
+
+			ModHrzShowSingleUserHelper::translateUserDetails($user, $userDetails);
+			$user->name = $user->firstName . ' ' .  $user->lastName;
+			ModHrzShowSingleUserHelper::varDump($user);
+
 		}
 
     	// Search for this tag in the content
@@ -59,23 +82,14 @@ class PlgSystemConvertformsidchanger extends JPlugin {
 		$replace = "{convertforms $formid}";
 
 		// Replace "old" tag by "new" one
-		if(!empty($formid)) {
+		if($formSet) {
 			$article->text = preg_replace($regex, $replace, $article->text);
 		}
 
-		// Check if uid and formid are set and get user specific name
-		if(!is_null($results)) {
-			if(count($results) == 1 && !empty($formid) && $formid >> 0) {
-				$name = $results[0]->firstname . ' ' . $results[0]->lastname;
-			}
-		}
-		else {
-			$name = $this->params->get('defaultRecipientName');
-		}
 
 		// Replace default name by user specific name
 		$regex = "~{recipientname}~";
-		$replace = $name;
+		$replace = $user->name;
 		//$replace = 'abc123';
 
 		$article->text = preg_replace($regex, $replace, $article->text);

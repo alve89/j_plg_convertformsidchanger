@@ -24,7 +24,14 @@
 					   label="PLG_HRZ_CONVERTFORMSIDCHANGER_LABEL_PARAMETERNAME"
 					   required="true"
 					   default="cfid"
-					   maxLength="15"
+					   maxLength="5"
+				/>
+				<field name="parameterNameUserId"
+					   type="text"
+					   label="PLG_HRZ_CONVERTFORMSIDCHANGER_LABEL_PARAMETERNAMEUSERID"
+					   required="true"
+					   default="uid"
+					   maxLength="5"
 				/>
 				<field name="defaultRecipientName"
 					   type="text"
