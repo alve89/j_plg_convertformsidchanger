@@ -1,0 +1,40 @@
+This plugin intends to automatically replaces a users ID to a Form ID of Joomlas extension Convert Forms.
+
+The workflow is:
+- The site visitor clicks on a link to a contact form to directly (!) contact a user (e. g. https://my.site/directcontact?cfid=99) where:
+    - directcontact is the menu item to a Convert Forms form which runs a PHP-script (see below)
+    - cfid is the parameter name to transport the user id. It is configurable in this plugin.
+    - 99 is the users id which is supposed to be contacted.
+- The user is being redirected to this directform
+- The PHP script within this form looks up the users id in the database, loads its email address and puts it into an hidden field
+- The visitor enters a message to the contact form and the mail gets sent to the hidden fields mail address.
+
+The code which needs to be placed in the Convert Forms contact form:
+
+
+```
+    if(isset($_POST['uid']) && !empty($_POST['uid'])) {
+$uid = $_POST['uid'];
+			// Get user details from database by given uid
+
+			// Get a db connection.
+			$db = JFactory::getDbo();
+
+			// Create a new query object.
+			$query = $db->getQuery(true);
+
+			// Select all records from the user profile table where key begins with "custom.".
+			// Order it by the ordering field.
+			$query->select($db->quoteName('email'));
+			$query->from($db->quoteName('#__users'));
+			$query->where($db->quoteName('id') . ' = ' . $db->quote($uid));
+
+			// Reset the query using our newly populated query object.
+			$db->setQuery($query);
+
+			// Load the results as a list of stdClass objects (see later for more options on retrieving data).
+			$results = $db->loadObjectList();
+
+$form['fields']['hidden_addr']['value'] = $results[0]->email;
+}
+```
