@@ -2,7 +2,6 @@
 
 defined('_JEXEC') or die;
 
-// JLoader::import('ModHrzShowSingleUserHelper.varDump','/modules/mod_hrz_show_single_user/helper.php');
 JLoader::register('ModHrzShowSingleUserHelper', JPATH_SITE . '/modules/mod_hrz_show_single_user/helper.php');
 
 
@@ -72,7 +71,6 @@ class PlgSystemConvertformsidchanger extends JPlugin {
 
 			ModHrzShowSingleUserHelper::translateUserDetails($user, $userDetails);
 			$user->name = $user->firstName . ' ' .  $user->lastName;
-			ModHrzShowSingleUserHelper::varDump($user);
 
 		}
 
