@@ -22,7 +22,7 @@ class PlgSystemConvertformsidchanger extends JPlugin {
 		// Check if the configured parameter key was transmitted via POST and if the given value of this key is a valid integer
 		if(isset($_GET[$this->params->get('parameterName')]) && is_int(intval($_GET[$this->params->get('parameterName')]))) {
 			/*
-			 * Check we changed transport method from GET to POST
+			 * TODO Check why transport method was changed from GET to POST
 			 * This also refers to the PHP script within the Convert Forms component!
 			 */
 			$formid = $_GET[$this->params->get('parameterName')];
