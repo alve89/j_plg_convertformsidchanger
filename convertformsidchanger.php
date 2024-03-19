@@ -12,12 +12,16 @@ class PlgSystemConvertformsidchanger extends JPlugin {
 		}
 
 
-
+		// Check if the configured parameter key was transmitted via POST and if the given value of this key is a valid integer
 		if(isset($_POST[$this->params->get('parameterName')]) && is_int(intval($_POST[$this->params->get('parameterName')]))) {
 			$formid = $_POST[$this->params->get('parameterName')];
 		}
 		else {
+			/*
+			 * TODO Change behaviour from formid=0 to redirect to default address
+			 */
 			$formid = 0;
+			
 		}
 
 		if(isset($_POST['uid']) && is_int(intval($_POST['uid']))) {

@@ -32,6 +32,12 @@
 					   required="true"
 					   default="STANDARDEMPFAENGER"
 				/>
+				<field name="defaultContactFormAddress"
+					   type="text"
+					   label="PLG_HRZ_CONVERTFORMSIDCHANGER_LABEL_DEFAULTCONTACTFORMADDRESS"
+					   required="true"
+					   default="/kontakt"
+				/>
 			</fieldset>
 
 		</fields>
